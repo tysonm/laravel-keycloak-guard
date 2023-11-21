@@ -61,7 +61,7 @@ This package helps you authenticate users on a Laravel API based on JWT tokens g
 Require the package
 
 ```
-composer require robsontenorio/laravel-keycloak-guard
+composer require tysonm/laravel-keycloak-guard
 ```
 
 ### Lumen only
@@ -113,6 +113,12 @@ This will allow you to customize the way you want to interact with your database
 
 If using this feature, obviously, values defined for `user_provider_credential` and `token_principal_attribute` will be ignored.
 
+✔️ **user_provider_email_credential**
+
+_Required.
+Default is `username`._
+
+The field from "users" table that contains the other unique identifier (eg. username, email, nickname) that is not in user_provider_credential. This will be confronted against `token_principal_attribute` attribute, while authenticating.
 ✔️ **user_provider_credential**
 
 _Required.
