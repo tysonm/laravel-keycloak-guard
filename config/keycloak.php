@@ -14,6 +14,7 @@ return [
     'append_decoded_token' => env('KEYCLOAK_APPEND_DECODED_TOKEN', false),
 
     'allowed_resources' => env('KEYCLOAK_ALLOWED_RESOURCES', null),
+    'user_provider_email_credential' => env('KEYCLOAK_USER_PROVIDER_EMAIL_CREDENTIAL', null),
 
     'ignore_resources_validation' => env('KEYCLOAK_IGNORE_RESOURCES_VALIDATION', false),
 

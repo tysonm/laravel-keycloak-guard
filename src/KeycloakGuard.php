@@ -43,8 +43,14 @@ class KeycloakGuard implements Guard
         }
 
         if ($this->decodedToken) {
+            $token_principal_attribute = $this->decodedToken->{$this->config['token_principal_attribute']};
+            $user_provider_credential = $this->config['user_provider_credential'];
+
+            if (!is_numeric($token_principal_attribute)) {
+                $user_provider_credential = $this->config['user_provider_email_credential'];
+            }
             $this->validate([
-                $this->config['user_provider_credential'] => $this->decodedToken->{$this->config['token_principal_attribute']}
+                $user_provider_credential => $token_principal_attribute
             ]);
         }
     }
@@ -91,12 +97,12 @@ class KeycloakGuard implements Guard
         return !$this->check();
     }
 
-     /**
-     * Set the current user.
-     *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @return void
-     */
+    /**
+    * Set the current user.
+    *
+    * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+    * @return void
+    */
     public function setUser(Authenticatable $user)
     {
         $this->user = $user;
@@ -132,11 +138,11 @@ class KeycloakGuard implements Guard
         }
     }
 
-     /**
-     * Returns full decoded JWT token from athenticated user
-     *
-     * @return mixed|null
-     */
+    /**
+    * Returns full decoded JWT token from athenticated user
+    *
+    * @return mixed|null
+    */
     public function token()
     {
         return json_encode($this->decodedToken);
@@ -214,7 +220,7 @@ class KeycloakGuard implements Guard
 
         return false;
     }
-    
+
     /**
      * Check if authenticated user has a any role into resource
      * @param string $resource
